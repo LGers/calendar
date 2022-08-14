@@ -6,26 +6,30 @@ import {
 } from './CalendarSelect.styled';
 import { Button } from '../Button';
 
-const weekDayNames = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
-const weekDays = ['21', '22', '23', '24', '25', '26', '27'];
+export interface CalendarSelectProps {
+  week: number[];
+  setWeek: (text: string) => void;
+}
 
-export const CalendarSelect = () => {
+const weekDayNames = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
+
+export const CalendarSelect = ({ week, setWeek }: CalendarSelectProps) => {
   return (
     <StyledCalendarSelect>
       <WeekDayNames>
-        {weekDayNames.map((day) => {
-          return <div>{day}</div>
+        {weekDayNames.map((day, idx) => {
+          return <div key={idx + day}>{day}</div>
         })}
       </WeekDayNames>
       <WeekDayDates>
-        {weekDays.map((day) => {
-          return <div>{day}</div>
+        {week.map((day, idx) => {
+          return <div key={idx + day}>{day}</div>
         })}
       </WeekDayDates>
       <WeekSelect>
-          <Button text={'<'} />
+        <Button text={'<'} onClick={() => setWeek('prev')} />
         <div>August 2022</div>
-        <Button text={'>'} />
+        <Button text={'>'} onClick={() => setWeek('next')} />
       </WeekSelect>
     </StyledCalendarSelect>
   )
