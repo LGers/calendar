@@ -1,23 +1,28 @@
 import { StyledMain } from './Main.styled';
-import { CalendarSelect } from '../CalendarSelect';
+import { CalendarHeader } from '../CalendarHeader';
 import { CalendarGrid } from '../CalendarGrid';
+import { MainProps } from './Main.types';
 
-export interface Main{
-  week: number[];
-  setWeek: (text: string) => void;
-  setCurrentCalendarTime: (i: number) => void;
-}
-
-export const Main = ({ week, setWeek,setCurrentCalendarTime }: Main) => {
-  return (
-    <StyledMain>
-      <CalendarSelect
-        week={week}
-        setWeek={setWeek}
-      />
-      <CalendarGrid
-        setCurrentCalendarTime={setCurrentCalendarTime}
-      />
+export const Main =
+  ({
+     setWeek,
+     setCurrentCalendarTime,
+     currentWeekEvents,
+     selectedTime,
+     startOfWeek
+   }: MainProps) => {
+    return (
+      <StyledMain>
+        <CalendarHeader
+          setWeek={setWeek}
+          startOfWeek={startOfWeek}
+        />
+        <CalendarGrid
+          setCurrentCalendarTime={setCurrentCalendarTime}
+          currentWeekEvents={currentWeekEvents}
+          selectedTime={selectedTime}
+          startOfWeek={startOfWeek}
+        />
     </StyledMain>
   )
 };

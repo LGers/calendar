@@ -1,9 +1,7 @@
 import { StyledHeader } from './Header.styled';
 import { Button } from '../Button';
+import { HeaderProps } from './Header.types';
 
-export interface HeaderProps {
-  addEvent: () => void;
-}
 export const Header = ({ addEvent }: HeaderProps) => {
   const handleAddEvent = () => {
     addEvent();
