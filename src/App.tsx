@@ -15,8 +15,9 @@ const initialState = {
 function App() {
   const [state, setState] = useState(initialState);
 
-  const setWeek = (text: string) => {
+  const setWeek = (text?: string) => {
     let dt = '';
+
     switch (text) {
       case 'prev':
         dt = moment(state.currentDate).subtract(1, 'week').format();
@@ -25,6 +26,9 @@ function App() {
       case 'next':
         dt = moment(state.currentDate).add(1, 'week').format();
         break;
+
+      default:
+        dt = moment().format();
     }
 
     setState((state) => {
@@ -91,6 +95,7 @@ function App() {
         selectedTime={state.selectedTime}
         currentWeekEvents={getCurrenWeekEvents(state.calendarEvens, state.currentDate)}
         deleteEvent={deleteEvent}
+        setWeek={setWeek}
       />
     </Wrapper>
   );
