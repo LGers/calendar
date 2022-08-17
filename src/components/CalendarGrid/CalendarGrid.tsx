@@ -44,7 +44,6 @@ export const CalendarGrid = ({
         {arr.map((a, i) => {
           return (
             <div key={i}>
-              {i}
               <Cell
                 onClick={() => handleCellClick(i)}
                 selected={i === cell}
