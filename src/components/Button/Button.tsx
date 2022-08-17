@@ -4,7 +4,6 @@ import React from 'react';
 
 export const Button = ({ text, onClick }: ButtonProps) => {
   const handleClick = (text: string) => {
-    console.log('click', text);
     if (onClick) {
       onClick();
     }

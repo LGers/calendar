@@ -1,4 +1,5 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+import { CellProps } from './CalendarGrid.types';
 
 export const StyledCalendarGrid = styled.section`
   display: grid;
@@ -30,7 +31,7 @@ export const CalendarTable = styled.div`
   }
 `;
 
-export const Cell = styled.div`
+export const Cell = styled.div<CellProps>`
   margin: 2px;
   height: 50px;
   width: 100%;
@@ -42,6 +43,24 @@ export const Cell = styled.div`
     transform: scale(1.1);
     transition: 0.15s ease-in-out;
   }
+
+  ${(props) =>
+          props.haveEvent &&
+          css`
+            background-color: #ebecff;
+          `}
+
+  ${(props) =>
+          props.selected &&
+          css`
+            background-color: #b3b7ff;
+            &:hover {
+              background-color: #b3b7ff;
+              opacity: 0.7;
+              transform: scale(1.1);
+              transition: 0.15s ease-in-out;
+            }
+          `}
 `;
 
 export const Times = styled.div`

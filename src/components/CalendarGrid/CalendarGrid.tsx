@@ -1,8 +1,7 @@
 import { CalendarTable, Cell, StyledCalendarGrid, Times } from './CalendarGrid.styled';
-
-export interface CalendarGridProps {
-  setCurrentCalendarTime: (i: number) => void;
-}
+import { useEffect, useState } from 'react';
+import moment from 'moment';
+import { CalendarGridProps } from './CalendarGrid.types';
 
 const arr = new Array(168).fill(null);
 const times: number[] = [];
@@ -11,7 +10,27 @@ for (let i = 0; i < 24; i++) {
   times.push(i);
 }
 
-export const CalendarGrid = ({ setCurrentCalendarTime }: CalendarGridProps) => {
+export const CalendarGrid = ({
+                               setCurrentCalendarTime,
+                               currentWeekEvents,
+                               selectedTime,
+                               startOfWeek,
+                             }: CalendarGridProps) => {
+  const [cell, setCell] = useState(-1);
+
+  useEffect(() => {
+    if (!selectedTime) setCell(-1);
+  }, [selectedTime])
+
+  const handleCellClick = (i: number) => {
+    setCurrentCalendarTime(i);
+    setCell(i);
+  };
+
+  const eventsNum: number[] = currentWeekEvents.map((el) => {
+    return moment(el).diff(startOfWeek) / 3600000;
+  });
+
   return (
     <StyledCalendarGrid>
       <Times>
@@ -25,7 +44,12 @@ export const CalendarGrid = ({ setCurrentCalendarTime }: CalendarGridProps) => {
         {arr.map((a, i) => {
           return (
             <div key={i}>
-              <Cell onClick={() => setCurrentCalendarTime(i)}/>
+              {i}
+              <Cell
+                onClick={() => handleCellClick(i)}
+                selected={i === cell}
+                haveEvent={eventsNum.some((el) => el === i)}
+              />
             </div>
           )
         })}
